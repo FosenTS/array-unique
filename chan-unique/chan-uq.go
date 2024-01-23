@@ -6,7 +6,7 @@ import (
 
 func ConvertToUniqueClosedChan[T comparable](in chan T) chan T {
 	var a array_unique.UniqueArray[T]
-	var el any
+	var el T
 	var ok bool
 	for {
 		select {
