@@ -4,10 +4,6 @@ type UniqueArray[T comparable] struct {
 	elements map[T]bool
 }
 
-func NewUniqueArray[T any]() {
-
-}
-
 func (ua *UniqueArray[T]) Add(elem T) {
 	if !ua.elements[elem] {
 		ua.elements[elem] = true
