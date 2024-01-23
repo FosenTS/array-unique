@@ -4,8 +4,8 @@ import (
 	array_unique "github.com/FosenTS/unique-types/array-unique"
 )
 
-func ConvertToUniqueClosedChan[T any](in chan T) chan T {
-	var a array_unique.UniqueArray
+func ConvertToUniqueClosedChan[T comparable](in chan T) chan T {
+	var a array_unique.UniqueArray[T]
 	var el any
 	var ok bool
 	for {

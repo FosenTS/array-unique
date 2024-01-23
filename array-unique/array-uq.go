@@ -1,37 +1,35 @@
 package array_unique
 
-type UniqueArray struct {
-	elements []any
+type UniqueArray[T comparable] struct {
+	elements map[T]bool
 }
 
-func (ua *UniqueArray) Add(elem any) {
-	for _, e := range ua.elements {
-		if e == elem {
-			return
-		}
-	}
-	ua.elements = append(ua.elements, elem)
+func NewUniqueArray[T any]() {
+
 }
 
-func (ua *UniqueArray) Remove(elem any) {
-	index := -1
-	for i, existingElement := range ua.elements {
-		if existingElement == elem {
-			index = i
-			break
-		}
-	}
-	if index != -1 {
-		ua.elements = append(ua.elements[:index], ua.elements[index+1:]...)
+func (ua *UniqueArray[T]) Add(elem T) {
+	if !ua.elements[elem] {
+		ua.elements[elem] = true
 	}
 }
 
-func (ua *UniqueArray) Elements() []any {
-	return ua.elements
+func (ua *UniqueArray[T]) Remove(elem T) {
+	delete(ua.elements, elem)
 }
 
-func CopySliceToUnique(in []any) UniqueArray {
-	out := UniqueArray{}
+func (ua *UniqueArray[T]) Elements() []T {
+	keys := make([]T, len(ua.elements))
+	i := 0
+	for k := range ua.elements {
+		keys[i] = k
+		i++
+	}
+	return keys
+}
+
+func CopySliceToUnique[T comparable](in []T) UniqueArray[T] {
+	out := UniqueArray[T]{}
 	for _, elem := range in {
 		out.Add(elem)
 	}
